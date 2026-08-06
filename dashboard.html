@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav class="dashboard-nav">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="dashboard-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/profile">
+            My Profile
+        </a>
+
+        <a href="/recommendation">
+            Career AI
+        </a>
+
+        <a href="/skill-gap">
+            Skill Gap
+        </a>
+
+        <a href="/roadmap">
+            Roadmap
+        </a>
+        <a href="/resources">
+            Learning Resources →
+        </a>
+        <a href="/job-readiness">
+            Job Readiness
+        </a>
+        <a href="/logout"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Dashboard -->
+
+<main class="dashboard-page">
+
+    <!-- Welcome -->
+
+    <section class="welcome-section">
+
+        <h1>
+            Welcome, {{ user.name }} 👋
+        </h1>
+
+        <p>
+            Track your career preparation
+            with CareerPilot AI.
+        </p>
+
+    </section>
+
+
+    <!-- Career Status -->
+
+    <section class="career-status">
+
+        <div>
+
+            <p class="status-label">
+                🎯 Target Career
+            </p>
+
+            {% if user.career_goal %}
+
+                <h2>
+                    {{ user.career_goal }}
+                </h2>
+
+            {% else %}
+
+                <h2>
+                    Not Selected
+                </h2>
+
+                <a href="/profile">
+                    Set Career Goal →
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="readiness-dashboard">
+
+            <p class="status-label">
+                📊 Career Readiness
+            </p>
+
+            <div class="dashboard-score">
+
+                {{ readiness }}%
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Learning Progress -->
+
+    <section class="progress-section">
+
+        <div class="progress-header">
+
+            <div>
+
+                <h2>
+                    📚 Learning Progress
+                </h2>
+
+                <p>
+                    {{ completed_learning_skills }}
+                    of
+                    {{ total_learning_skills }}
+                    skills completed
+                </p>
+
+            </div>
+
+            <strong>
+                {{ learning_progress }}%
+            </strong>
+
+        </div>
+
+
+        <div class="dashboard-progress-bar">
+
+            <div
+                class="dashboard-progress"
+                style="width: {{ learning_progress }}%;">
+            </div>
+
+        </div>
+
+
+        {% if learning_progress == 0 %}
+
+            <p class="progress-message">
+                🌱 Start your learning roadmap today!
+            </p>
+
+        {% elif learning_progress < 50 %}
+
+            <p class="progress-message">
+                🚀 Good start! Keep learning and
+                completing your skills.
+            </p>
+
+        {% elif learning_progress < 100 %}
+
+            <p class="progress-message">
+                🔥 Great progress! You're getting
+                closer to your career goal.
+            </p>
+
+        {% else %}
+
+            <p class="progress-message">
+                🎉 Excellent! You completed your
+                learning roadmap.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Statistics -->
+
+    <section class="dashboard-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💻
+            </div>
+
+            <h3>
+                {{ matched_skills|length }}
+            </h3>
+
+            <p>
+                Skills You Have
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <h3>
+                {{ total_learning_skills }}
+            </h3>
+
+            <p>
+                Skills To Learn
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✅
+            </div>
+
+            <h3>
+                {{ completed_learning_skills }}
+            </h3>
+
+            <p>
+                Skills Completed
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Learning Journey -->
+
+    <section class="learning-progress-card">
+
+        <div class="learning-progress-icon">
+            🏆
+        </div>
+
+        <div class="learning-progress-content">
+
+            <h2>
+                Your Learning Journey
+            </h2>
+
+            <p>
+                You have completed
+                <strong>
+                    {{ learning_progress }}%
+                </strong>
+                of your required learning skills.
+            </p>
+
+        </div>
+
+        <a href="/roadmap">
+            Continue Learning →
+        </a>
+
+    </section>
+
+
+    <!-- Skills -->
+
+    <section class="dashboard-skills">
+
+        <!-- Your Skills -->
+
+        <div class="dashboard-card">
+
+            <h2>
+                ✅ Your Skills
+            </h2>
+
+            {% if matched_skills %}
+
+                {% for skill in matched_skills %}
+
+                    <span class="dashboard-skill matched">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    Add skills to your profile.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Skills To Learn -->
+
+        <div class="dashboard-card">
+
+            <h2>
+                📚 Skills To Learn
+            </h2>
+
+            {% if missing_skills %}
+
+                {% for skill in missing_skills %}
+
+                    <span class="dashboard-skill missing">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    🎉 No skill gaps found!
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- Quick Actions -->
+
+    <section class="quick-actions">
+
+        <h2>
+            🚀 Continue Your Career Journey
+        </h2>
+
+
+        <div class="action-grid">
+
+            <a href="/recommendation"
+               class="action-card">
+
+                <span>
+                    🤖
+                </span>
+
+                <h3>
+                    AI Career Recommendation
+                </h3>
+
+                <p>
+                    Discover careers that match
+                    your profile.
+                </p>
+
+            </a>
+
+
+            <a href="/skill-gap"
+               class="action-card">
+
+                <span>
+                    📊
+                </span>
+
+                <h3>
+                    Skill Gap Analysis
+                </h3>
+
+                <p>
+                    Find the skills you need
+                    to improve.
+                </p>
+
+            </a>
+
+<a href="/resources"
+   class="action-card">
+
+    <span>
+        📚
+    </span>
+
+    <h3>
+        Learning Resources
+    </h3>
+
+    <p>
+        Find resources to improve your
+        missing skills.
+    </p>
+
+</a>
+            <a href="/roadmap"
+               class="action-card">
+
+                <span>
+                    🛣️
+                </span>
+
+                <h3>
+                    Learning Roadmap
+                </h3>
+
+                <p>
+                    Follow your personalized
+                    learning path.
+                </p>
+
+            </a>
+
+
+            <a href="/profile"
+               class="action-card">
+
+                <span>
+                    👤
+                </span>
+
+                <h3>
+                    Update Profile
+                </h3>
+
+                <p>
+                    Keep your skills and career
+                    goal updated.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+<!-- Career Insight -->
+
+<section class="career-insight">
+
+    <div class="insight-icon">
+        💡
+    </div>
+
+    <div class="insight-content">
+
+        <h2>
+            CareerPilot AI Insight
+        </h2>
+
+        <p>
+            {{ career_message }}
+        </p>
+
+    </div>
+
+    <a href="/roadmap"
+       class="insight-button">
+
+        {{ career_action }} →
+
+    </a>
+
+</section>
+<!-- Progress Overview -->
+
+<section class="progress-overview">
+
+    <!-- Career Readiness -->
+
+    <div class="progress-card">
+
+        <div class="progress-card-icon">
+            🎯
+        </div>
+
+        <h3>
+            Career Readiness
+        </h3>
+
+        <div class="mini-progress-bar">
+
+            <div
+                class="mini-progress-fill"
+                style="width: {{ readiness }}%;">
+            </div>
+
+        </div>
+
+        <strong>
+            {{ readiness }}%
+        </strong>
+
+    </div>
+
+
+    <!-- Learning Progress -->
+
+    <div class="progress-card">
+
+        <div class="progress-card-icon">
+            📚
+        </div>
+
+        <h3>
+            Learning Progress
+        </h3>
+
+        <div class="mini-progress-bar">
+
+            <div
+                class="mini-progress-fill"
+                style="width: {{ learning_progress }}%;">
+            </div>
+
+        </div>
+
+        <strong>
+            {{ learning_progress }}%
+        </strong>
+
+    </div>
+
+
+    <!-- Overall Progress -->
+
+    <div class="progress-card">
+
+        <div class="progress-card-icon">
+            🏆
+        </div>
+
+        <h3>
+            Overall Progress
+        </h3>
+
+        <div class="mini-progress-bar">
+
+            <div
+                class="mini-progress-fill"
+                style="width: {{ overall_progress }}%;">
+            </div>
+
+        </div>
+
+        <strong>
+            {{ overall_progress }}%
+        </strong>
+
+    </div>
+    <a href="/job-readiness"
+   class="action-card">
+
+    <span>
+        💼
+    </span>
+
+    <h3>
+        Job Readiness
+    </h3>
+
+    <p>
+        Check your resume and career
+        preparation level.
+    </p>
+
+</a>
+
+</section>
+<footer>
+
+    <p>
+        © 2026 CareerPilot AI
+    </p>
+
+</footer>
+</body>
+
+</html>

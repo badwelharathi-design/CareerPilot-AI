@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Learning Roadmap - CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav class="dashboard-nav">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="dashboard-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/profile">
+            Profile
+        </a>
+
+        <a href="/recommendation">
+            Career AI
+        </a>
+
+        <a href="/skill-gap">
+            Skill Gap
+        </a>
+
+        <a href="/roadmap">
+            Roadmap
+        </a>
+
+        <a href="/logout"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Main -->
+
+<main class="roadmap-page">
+
+
+    <div class="roadmap-header">
+
+        <div class="roadmap-icon">
+            🛣️
+        </div>
+
+        <h1>
+            Personalized Learning Roadmap
+        </h1>
+
+        {% if career %}
+
+        <p>
+            Your roadmap for becoming a
+            <strong>{{ career }}</strong>
+        </p>
+
+        {% else %}
+
+        <p>
+            Complete your profile to create
+            your personalized roadmap.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if roadmap %}
+
+
+    <!-- Readiness -->
+
+    <div class="roadmap-summary">
+
+        <div>
+
+            <h2>
+                Current Career Readiness
+            </h2>
+
+            <p>
+                You are currently
+                <strong>{{ readiness }}%</strong>
+                prepared for your target career.
+            </p>
+
+        </div>
+
+        <div class="summary-score">
+
+            {{ readiness }}%
+
+        </div>
+
+    </div>
+
+
+    <!-- Roadmap -->
+
+    <div class="roadmap-container">
+
+
+        {% for item in roadmap %}
+
+        <div class="roadmap-item">
+
+
+            <div class="roadmap-number">
+
+                {{ item.step }}
+
+            </div>
+
+
+            <div class="roadmap-content">
+
+                <div class="roadmap-title">
+
+                    <h2>
+                        {{ item.skill }}
+                    </h2>
+
+                    <span>
+                        {{ item.duration }}
+                    </span>
+
+                </div>
+
+
+                <p class="level">
+
+                    Level:
+                    <strong>
+                        {{ item.level }}
+                    </strong>
+
+                </p>
+
+
+                <h3>
+                    📚 Topics to Learn
+                </h3>
+
+
+                <ul>
+
+                    {% for topic in item.topics %}
+
+                    <li>
+                        {{ topic }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+
+             {% if item.skill in completed_skills %}
+
+    <button
+        class="complete-btn completed"
+        disabled>
+
+        ✅ Completed
+
+    </button>
+
+{% else %}
+
+    <form method="POST"
+          action="/complete-skill">
+
+        <input
+            type="hidden"
+            name="skill"
+            value="{{ item.skill }}">
+
+        <button
+            type="submit"
+            class="complete-btn">
+
+            Mark as Complete ✓
+
+        </button>
+
+    </form>
+
+{% endif %}   
+                
+
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- Final Stage -->
+
+        <div class="roadmap-item final-stage">
+
+            <div class="roadmap-number">
+                🎯
+            </div>
+
+            <div class="roadmap-content">
+
+                <h2>
+                    Build Projects & Get Job Ready
+                </h2>
+
+                <p>
+                    Apply your skills by building
+                    real-world projects and preparing
+                    for internships and interviews.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Build 2–3 projects
+                    </li>
+
+                    <li>
+                        Create GitHub portfolio
+                    </li>
+
+                    <li>
+                        Prepare resume
+                    </li>
+
+                    <li>
+                        Practice interviews
+                    </li>
+
+                    <li>
+                        Apply for internships/jobs
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="no-roadmap">
+
+        <h2>
+            🎯 Set Your Career Goal
+        </h2>
+
+        <p>
+            Add a career goal and skills
+            in your profile first.
+        </p>
+
+        <a href="/profile">
+            Complete Profile →
+        </a>
+
+    </div>
+
+
+    {% endif %}
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 CareerPilot AI
+    </p>
+
+</footer>
+<div class="completion-summary">
+
+    <h2>
+        📈 Learning Progress
+    </h2>
+
+    <p>
+        You have completed
+        <strong>
+            {{ completed_skills|length }}
+        </strong>
+        learning skill(s).
+    </p>
+
+</div>
+
+
+</body>
+
+</html>

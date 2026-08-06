@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Job Readiness - CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav class="dashboard-nav">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+
+    <div class="dashboard-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/profile">
+            My Profile
+        </a>
+
+        <a href="/recommendation">
+            Career AI
+        </a>
+
+        <a href="/skill-gap">
+            Skill Gap
+        </a>
+
+        <a href="/roadmap">
+            Roadmap
+        </a>
+        <a href="/resources">
+            Learning Resources →
+        </a>
+
+        <a href="/job-readiness">
+            Job Readiness
+        </a>
+
+        <a href="/logout"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="job-readiness-page">
+
+
+    <!-- Header -->
+
+    <section class="job-header">
+
+        <div class="job-header-icon">
+            💼
+        </div>
+
+        <h1>
+            Resume & Job Readiness
+        </h1>
+
+        <p>
+            Check how prepared you are for your
+            target career.
+        </p>
+
+    </section>
+
+
+    <!-- Main Score -->
+
+    <section class="job-score-card">
+
+        <div class="job-score-icon">
+            🎯
+        </div>
+
+        <h2>
+            Overall Job Readiness
+        </h2>
+
+        <div class="job-score">
+            {{ job_score }}%
+        </div>
+
+        <div class="job-progress-bar">
+
+            <div
+                class="job-progress-fill"
+                style="width: {{ job_score }}%;">
+            </div>
+
+        </div>
+
+        <p>
+            {{ readiness_message }}
+        </p>
+
+    </section>
+
+
+    <!-- Score Cards -->
+
+    <section class="job-score-grid">
+
+
+        <div class="job-mini-card">
+
+            <div>
+                📄
+            </div>
+
+            <h3>
+                Resume Readiness
+            </h3>
+
+            <strong>
+                {{ resume_score }}%
+            </strong>
+
+        </div>
+
+
+        <div class="job-mini-card">
+
+            <div>
+                🎯
+            </div>
+
+            <h3>
+                Career Readiness
+            </h3>
+
+            <strong>
+                {{ readiness }}%
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- Career -->
+
+    <section class="job-info-card">
+
+        <h2>
+            🎯 Target Career
+        </h2>
+
+        {% if career %}
+
+            <h3>
+                {{ career }}
+            </h3>
+
+        {% else %}
+
+            <p>
+                No career goal selected.
+            </p>
+
+            <a href="/profile">
+                Set Career Goal →
+            </a>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Skills -->
+
+    <section class="job-skills-grid">
+
+
+        <div class="job-info-card">
+
+            <h2>
+                ✅ Skills You Have
+            </h2>
+
+            {% if matched_skills %}
+
+                {% for skill in matched_skills %}
+
+                    <span class="job-skill matched">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    Add skills to your profile.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="job-info-card">
+
+            <h2>
+                📚 Skills To Improve
+            </h2>
+
+            {% if missing_skills %}
+
+                {% for skill in missing_skills %}
+
+                    <span class="job-skill missing">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    🎉 No major skill gaps found!
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+    </section>
+
+
+    <!-- Suggestions -->
+
+    <section class="job-suggestions">
+
+        <h2>
+            🚀 How To Become Job Ready
+        </h2>
+
+
+        <div class="job-suggestion-grid">
+
+
+            <div class="job-suggestion-card">
+
+                <span>
+                    📚
+                </span>
+
+                <h3>
+                    Learn Missing Skills
+                </h3>
+
+                <p>
+                    Complete the skills required
+                    for your target career.
+                </p>
+
+                <a href="/skill-gap">
+                    View Skill Gap →
+                </a>
+
+            </div>
+
+
+            <div class="job-suggestion-card">
+
+                <span>
+                    🛣️
+                </span>
+
+                <h3>
+                    Follow Your Roadmap
+                </h3>
+
+                <p>
+                    Complete your personalized
+                    learning roadmap.
+                </p>
+
+                <a href="/roadmap">
+                    View Roadmap →
+                </a>
+
+            </div>
+
+
+            <div class="job-suggestion-card">
+
+                <span>
+                    📖
+                </span>
+
+                <h3>
+                    Practice & Build Projects
+                </h3>
+
+                <p>
+                    Build practical projects to
+                    demonstrate your skills.
+                </p>
+
+                <a href="/resources">
+                    Learning Resources →
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 CareerPilot AI
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

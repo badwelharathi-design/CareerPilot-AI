@@ -1,2 +1,2 @@
 # CareerPilot-AI
-AI-based career and skill recommendation platform for students.
+AI-Powered Career &amp; Skill Recommendation Platform

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Career AI - CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav class="dashboard-nav">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+
+    <div class="dashboard-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/profile">
+            My Profile
+        </a>
+
+        <a href="/recommendation">
+            Career AI
+        </a>
+
+        <a href="/skill-gap">
+            Skill Gap
+        </a>
+
+        <a href="/roadmap">
+            Roadmap
+        </a>
+
+        <a href="/logout"
+           class="logout-btn">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Career AI -->
+
+<main class="recommendation-page">
+
+
+    <!-- Header -->
+
+    <section class="recommendation-header">
+
+        <div class="ai-icon">
+            🤖
+        </div>
+
+        <h1>
+            AI Career Recommendation
+        </h1>
+
+        <p>
+            Discover career paths that match
+            your skills, interests and education.
+        </p>
+
+    </section>
+
+
+    <!-- Profile Message -->
+
+    <section class="ai-message">
+
+        <p>
+            {{ message }}
+        </p>
+
+    </section>
+
+
+    {% if profile_complete %}
+
+
+        <!-- Profile Summary -->
+
+        <section class="profile-summary">
+
+            <h2>
+                👤 Your AI Profile
+            </h2>
+
+
+            <div class="profile-summary-grid">
+
+                <div>
+
+                    <strong>
+                        💻 Skills
+                    </strong>
+
+                    <p>
+                        {{ user.skills }}
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ❤️ Interests
+                    </strong>
+
+                    <p>
+                        {{ user.interests }}
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        🎓 Education
+                    </strong>
+
+                    <p>
+                        {{ user.education }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Recommendations -->
+
+        <section class="recommendation-results">
+
+            <h2>
+                🎯 Recommended Careers
+            </h2>
+
+
+            {% if recommendations %}
+
+                <div class="career-grid">
+
+                    {% for career in recommendations %}
+
+                        <div class="career-card">
+
+                            <div class="career-card-icon">
+                                🚀
+                            </div>
+
+
+                            <h3>
+                                {{ career }}
+                            </h3>
+
+
+                            <p>
+                                This career matches your
+                                current profile and can be
+                                explored through your
+                                personalized roadmap.
+                            </p>
+
+
+                            <a href="/skill-gap"
+                               class="career-button">
+
+                                Check Skill Gap →
+
+                            </a>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+                <div class="no-recommendation">
+
+                    <h3>
+                        No recommendations found.
+                    </h3>
+
+                    <p>
+                        Try adding more skills and
+                        interests to your profile.
+                    </p>
+
+                    <a href="/profile">
+                        Update Profile →
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+    {% else %}
+
+
+        <!-- Incomplete Profile -->
+
+        <section class="profile-warning">
+
+            <div class="warning-icon">
+                ⚠️
+            </div>
+
+            <h2>
+                Complete Your Profile
+            </h2>
+
+            <p>
+                CareerPilot AI needs your skills,
+                interests and education to generate
+                better career recommendations.
+            </p>
+
+            <a href="/profile"
+               class="update-profile-button">
+
+                Complete My Profile →
+
+            </a>
+
+        </section>
+
+
+    {% endif %}
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 CareerPilot AI
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Gap Analysis - CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav class="dashboard-nav">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="dashboard-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/profile">
+            Profile
+        </a>
+
+        <a href="/recommendation">
+            Career AI
+        </a>
+
+        <a href="/skill-gap">
+            Skill Gap
+        </a>
+
+        <a href="/logout"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Main -->
+
+<main class="skill-gap-page">
+
+
+    <div class="skill-gap-header">
+
+        <div class="skill-icon">
+            📊
+        </div>
+
+        <h1>
+            Skill Gap Analysis
+        </h1>
+
+        <p>
+            Discover the skills you have
+            and the skills you need to learn.
+        </p>
+
+    </div>
+
+
+    <!-- Career Selection -->
+
+    <div class="career-selection">
+
+        <form method="POST"
+              action="/skill-gap">
+
+            <label>
+                Select Your Target Career
+            </label>
+
+            <select name="career"
+                    required>
+
+                <option value="">
+                    -- Select Career --
+                </option>
+
+                {% for career in careers %}
+
+                <option value="{{ career }}"
+                    {% if selected_career == career %}
+                        selected
+                    {% endif %}>
+
+                    {{ career }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <button type="submit">
+
+                🔍 Analyze Skills
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% if result %}
+
+
+    <!-- Readiness -->
+
+    <div class="readiness-card">
+
+        <h2>
+            Career Readiness
+        </h2>
+
+        <div class="readiness-score">
+
+            {{ result.readiness }}%
+
+        </div>
+
+        <p>
+            Your current skill match for
+            <strong>{{ selected_career }}</strong>
+        </p>
+
+        <div class="readiness-bar">
+
+            <div class="readiness-progress"
+                 style="width: {{ result.readiness }}%;">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Skills -->
+
+    <div class="skills-analysis">
+
+
+        <!-- Matched -->
+
+        <div class="skills-card">
+
+            <h2>
+                ✅ Skills You Have
+            </h2>
+
+            {% if result.matched %}
+
+                {% for skill in result.matched %}
+
+                    <span class="skill-tag matched">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    No matching skills found.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Missing -->
+
+        <div class="skills-card">
+
+            <h2>
+                📚 Skills You Need
+            </h2>
+
+            {% if result.missing %}
+
+                {% for skill in result.missing %}
+
+                    <span class="skill-tag missing">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    🎉 You have all required skills!
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Recommendation -->
+
+    <div class="learning-box">
+
+        <h2>
+            🧠 What Should You Learn Next?
+        </h2>
+
+        {% if result.missing %}
+
+            <p>
+                Focus on these skills first:
+            </p>
+
+            <ul>
+
+                {% for skill in result.missing[:3] %}
+
+                <li>
+                    {{ skill|title }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>
+                You are ready for this career!
+                Keep improving through projects and practice.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    {% endif %}
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 CareerPilot AI
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

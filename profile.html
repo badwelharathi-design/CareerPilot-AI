@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile - CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="dashboard-nav">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="dashboard-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/profile">
+            My Profile
+        </a>
+
+        <a href="/recommendation">
+            Career AI
+        </a>
+
+        <a href="/skill-gap">
+            Skill Gap
+        </a>
+
+        <a href="/roadmap">
+            Roadmap
+        </a>
+
+        <a href="/logout"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="profile-page">
+
+    <div class="profile-header">
+
+        <div class="profile-icon">
+            👤
+        </div>
+
+        <h1>
+            My Profile
+        </h1>
+
+        <p>
+            Complete your profile to get
+            personalized career recommendations.
+        </p>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <form method="POST"
+              action="/profile">
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    value="{{ user.name }}"
+                    disabled>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    value="{{ user.email }}"
+                    disabled>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Education
+                </label>
+
+                <input
+                    type="text"
+                    name="education"
+                    placeholder="Example: B.Tech CSE Data Science"
+                    value="{{ user.education or '' }}"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Skills
+                </label>
+
+                <textarea
+                    name="skills"
+                    placeholder="Example: Python, SQL, Pandas, HTML, CSS"
+                    required>{{ user.skills or '' }}</textarea>
+
+                <small>
+                    Separate multiple skills with commas.
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Interests
+                </label>
+
+                <textarea
+                    name="interests"
+                    placeholder="Example: Data Science, AI, Machine Learning"
+                    required>{{ user.interests or '' }}</textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Career Goal
+                </label>
+
+                <select
+                    name="career_goal"
+                    required>
+
+                    <option value="">
+                        -- Select Career Goal --
+                    </option>
+
+                    <option value="Data Scientist"
+                        {% if user.career_goal == "Data Scientist" %}selected{% endif %}>
+                        Data Scientist
+                    </option>
+
+                    <option value="Machine Learning Engineer"
+                        {% if user.career_goal == "Machine Learning Engineer" %}selected{% endif %}>
+                        Machine Learning Engineer
+                    </option>
+
+                    <option value="AI Engineer"
+                        {% if user.career_goal == "AI Engineer" %}selected{% endif %}>
+                        AI Engineer
+                    </option>
+
+                    <option value="Data Analyst"
+                        {% if user.career_goal == "Data Analyst" %}selected{% endif %}>
+                        Data Analyst
+                    </option>
+
+                    <option value="Web Developer"
+                        {% if user.career_goal == "Web Developer" %}selected{% endif %}>
+                        Web Developer
+                    </option>
+
+                    <option value="Backend Developer"
+                        {% if user.career_goal == "Backend Developer" %}selected{% endif %}>
+                        Backend Developer
+                    </option>
+
+                    <option value="Software Developer"
+                        {% if user.career_goal == "Software Developer" %}selected{% endif %}>
+                        Software Developer
+                    </option>
+
+                    <option value="Cyber Security Analyst"
+                        {% if user.career_goal == "Cyber Security Analyst" %}selected{% endif %}>
+                        Cyber Security Analyst
+                    </option>
+
+                    <option value="Cloud Engineer"
+                        {% if user.career_goal == "Cloud Engineer" %}selected{% endif %}>
+                        Cloud Engineer
+                    </option>
+
+                    <option value="Android Developer"
+                        {% if user.career_goal == "Android Developer" %}selected{% endif %}>
+                        Android Developer
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-profile-btn">
+
+                💾 Save Profile
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 CareerPilot AI
+    </p>
+
+</footer>
+
+</body>
+
+</html>

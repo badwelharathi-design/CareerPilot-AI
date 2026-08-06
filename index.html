@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+          <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 CareerPilot AI
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="/login" class="login-btn">Login</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="welcome">
+                Welcome to CareerPilot AI
+            </p>
+
+            <h1>
+                Navigate Your Career
+                <span>With AI</span>
+            </h1>
+
+            <p class="description">
+                Discover the right career path, identify your skill gaps,
+                and build a personalized learning roadmap using Artificial Intelligence.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/register" class="primary-btn">
+                    Get Started 🚀
+                </a>
+
+                <a href="#features" class="secondary-btn">
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+
+        <h2>What CareerPilot AI Offers</h2>
+
+        <p class="section-description">
+            Smart tools to help students make better career decisions.
+        </p>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="icon">🎯</div>
+                <h3>Career Recommendation</h3>
+                <p>
+                    Get AI-powered career recommendations
+                    based on your skills and interests.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Skill Gap Analysis</h3>
+                <p>
+                    Identify the skills you already have
+                    and discover the skills you need.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="icon">🛣️</div>
+                <h3>Learning Roadmap</h3>
+                <p>
+                    Follow a personalized roadmap to
+                    achieve your career goals.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="icon">🤖</div>
+                <h3>AI Career Prediction</h3>
+                <p>
+                    Analyze your profile and predict
+                    suitable career opportunities.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+
+        <h2>About CareerPilot AI</h2>
+
+        <p>
+            CareerPilot AI is an intelligent career guidance platform
+            designed to help students understand their strengths,
+            improve their skills, and choose suitable career paths.
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 CareerPilot AI | AI-Powered Career & Skill Recommendation Platform
+        </p>
+
+    </footer>
+    <script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register(
+            "{{ url_for('static', filename='sw.js') }}"
+        );
+    });
+}
+</script>
+
+</body>
+
+</html>
